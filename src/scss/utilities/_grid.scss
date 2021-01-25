@@ -1,0 +1,13 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    .d#{$infix}-flex-grow {
+      flex-grow: 1;
+    }
+
+    .d#{$infix}-flex-shrink {
+      flex-shrink: 1;
+    }
+  }
+}

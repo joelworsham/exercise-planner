@@ -1,0 +1,15 @@
+.ep-icon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+
+  &.sm {
+    width: .75rem;
+    height: .75rem;
+  }
+
+  &.lg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
