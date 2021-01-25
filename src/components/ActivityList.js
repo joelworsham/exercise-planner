@@ -5,6 +5,7 @@ function ActivityList(
   {
     activities,
     editable = false,
+    onEdit,
     onRemove,
   },
 ) {
@@ -15,6 +16,7 @@ function ActivityList(
           ? (
             <ActivityItemEditable
               key={activity.id}
+              onEdit={() => onEdit(activity)}
               onRemove={() => onRemove(activity)}
             >
               <ActivityItem {...activity}/>
