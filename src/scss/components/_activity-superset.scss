@@ -1,0 +1,46 @@
+.ep-activity-superset {
+  position: relative;
+
+  .ep-activities-list > & {
+    &:not(:last-child) {
+      margin-bottom: $exercise-list-margin-bottom;
+    }
+  }
+
+
+  .ep-activity-item {
+    @include make-col-ready;
+    @include make-col(6);
+
+    &:last-child {
+      .ep-activity-item-category {
+        order: 2;
+        margin-left: auto;
+        margin-right: -1px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+  }
+}
+
+.ep-activity-superset-connector {
+  position: absolute;
+  top: calc(50% - #{$exercise-superset-connector-height / 2});
+  left: calc(50% - #{$exercise-superset-connector-width / 2});
+  width: $exercise-superset-connector-width;
+  height: $exercise-superset-connector-height;
+  background-color: $primary;
+  border: 1px solid mix($primary, $white, 50);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  text-align: center;
+  z-index: 10;
+}
+
+.ep-activity-superset-connector-icon {
+  color: $white;
+  font-size: 1.5rem;
+}
