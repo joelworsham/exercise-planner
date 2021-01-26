@@ -9,7 +9,7 @@ function AddActivity(
     onAdd,
   },
 ) {
-  const activities = storage.get('activities');
+  const activities = storage.get('activities', []);
   activities.sort((a, b) => a.name.localeCompare(b.name));
 
   const [validated, updateValidated] = useState(false);

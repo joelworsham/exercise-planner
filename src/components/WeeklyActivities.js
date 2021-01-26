@@ -20,7 +20,7 @@ class WeeklyActivities extends React.Component {
   }
 
   addActivity([activityId, activity2Id], day) {
-    const activities = storage.get('activities');
+    const activities = storage.get('activities', []);
 
     let dayActivity = { id: getUniqueId('day-activity-') };
 

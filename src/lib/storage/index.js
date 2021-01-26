@@ -1,6 +1,8 @@
 class Storage {
-  get(item) {
-    return JSON.parse(localStorage.getItem(item));
+  get(item, defaultValue) {
+    const value = localStorage.getItem(item);
+    if (value === null) return defaultValue
+    return JSON.parse(value);
   }
 
   save(item, value) {

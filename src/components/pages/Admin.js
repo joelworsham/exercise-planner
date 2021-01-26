@@ -7,7 +7,7 @@ import storage from '../../lib/storage';
 import EditActivityModal from '../EditActivityModal';
 
 function PageAdmin() {
-  const [activities, updateActivities] = useState(storage.get('activities') || []);
+  const [activities, updateActivities] = useState(storage.get('activities', []));
   const [editActivityState, updateEditActivityState] = useState(null);
 
   const addActivity = (activity) => {

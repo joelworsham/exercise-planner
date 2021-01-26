@@ -2,11 +2,17 @@
   "name": "exercise-planner",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "react-scripts start",
+    "dev:server": "nodemon server",
+    "build": "react-scripts build",
+    "start": "node server",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "bootstrap-scss": "^4.5.3",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
@@ -18,11 +24,11 @@
     "sass-loader": "^10.1.1",
     "web-vitals": "^0.2.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "nodemon": "^2.0.7"
   },
   "eslintConfig": {
     "extends": [

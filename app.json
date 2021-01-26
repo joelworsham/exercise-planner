@@ -1,0 +1,11 @@
+{
+  "name": "Exercise Planner",
+  "description": "Weekly planner and tracker for exercising.",
+  "keywords": [
+    "exercise",
+    "weekly",
+    "react"
+  ],
+  "website": "https://github.com/joelworsham/exercise-planner",
+  "repository": "https://github.com/joelworsham/exercise-planner"
+}
