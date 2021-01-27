@@ -19,19 +19,12 @@ class WeeklyActivities extends React.Component {
     };
   }
 
-  addActivity([activityId, activity2Id], day) {
-    const activities = storage.get('activities', []);
-
-    let dayActivity = { id: getUniqueId('day-activity-') };
-
-    if (activity2Id) {
-      dayActivity.superset = [
-        { exercise: activities.find(({ id }) => `${id}` === activityId) },
-        { exercise: activities.find(({ id }) => `${id}` === activity2Id) },
-      ];
-    } else {
-      dayActivity.exercise = activities.find(({ id }) => `${id}` === activityId);
-    }
+  addActivity({ exercises, type }, day) {
+    let dayActivity = {
+      id: getUniqueId('day-activity-'),
+      exercises,
+      type,
+    };
 
     this.setState(({ weeklyActivities }) => ({
       weeklyActivities: {
@@ -63,7 +56,7 @@ class WeeklyActivities extends React.Component {
             activities={this.state.weeklyActivities[day]}
             className="mb-4"
             day={day}
-            onAdd={(addActivityIds) => this.addActivity(addActivityIds, day)}
+            onAdd={(activity) => this.addActivity(activity, day)}
             onRemove={(activityId) => this.removeActivity(activityId, day)}
           />
         ))}

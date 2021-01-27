@@ -1,0 +1,7 @@
+@mixin floating-icon {
+  color: $white;
+  background-color: $primary;
+  border: 1px solid mix($primary, $white, 50);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+}

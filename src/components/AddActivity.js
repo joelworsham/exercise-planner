@@ -21,7 +21,11 @@ function AddActivity(
     event.preventDefault();
 
     if (event.currentTarget.checkValidity() !== false) {
-      onAdd(selectedActivity2 ? [selectedActivity, selectedActivity2] : [selectedActivity]);
+      const exercises = [activities.find(({ id }) => `${id}` === selectedActivity)];
+      if (selectedActivity2) {
+        exercises.push(activities.find(({ id }) => `${id}` === selectedActivity2))
+      }
+      onAdd({ exercises, type: addMode });
       updateSelectedActivity('');
       updateSelectedActivity2('');
       updateValidated(false);
@@ -52,6 +56,12 @@ function AddActivity(
             onClick={() => updateAddMode('superset')}
           >
             Superset
+          </Button>
+          <Button
+            variant={addMode === 'pyramid' ? 'secondary' : 'outline-secondary'}
+            onClick={() => updateAddMode('pyramid')}
+          >
+            Pyramid
           </Button>
         </ButtonGroup>
 

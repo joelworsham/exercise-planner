@@ -1,0 +1,16 @@
+$pyramid-icon-size: 2.5rem;
+
+.ep-activity-pyramid {
+  position: relative;
+
+  .ep-icon-pyramid {
+    @include floating-icon;
+
+    position: absolute;
+    top: calc(50% - #{$pyramid-icon-size / 2});
+    left: -#{$pyramid-icon-size / 3};
+    height: $pyramid-icon-size;
+    width: $pyramid-icon-size;
+    padding: .25rem;
+  }
+}

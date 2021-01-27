@@ -50,7 +50,7 @@ function DayActivities(
                       <Col>
                         <AddActivity
                           className="mb-4"
-                          onAdd={(addActivityIds) => onAdd(addActivityIds, day)}
+                          onAdd={(activity) => onAdd(activity, day)}
                         />
                       </Col>
                       <Col>

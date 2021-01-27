@@ -27,15 +27,13 @@
 }
 
 .ep-activity-superset-connector {
+  @include floating-icon;
+
   position: absolute;
   top: calc(50% - #{$exercise-superset-connector-height / 2});
   left: calc(50% - #{$exercise-superset-connector-width / 2});
   width: $exercise-superset-connector-width;
   height: $exercise-superset-connector-height;
-  background-color: $primary;
-  border: 1px solid mix($primary, $white, 50);
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
   text-align: center;
   z-index: 10;
 }
