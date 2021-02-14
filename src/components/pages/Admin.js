@@ -5,13 +5,14 @@ import ActivityList from '../ActivityList';
 import CreateActivity from '../CreateActivity';
 import storage from '../../lib/storage';
 import EditActivityModal from '../EditActivityModal';
+import { Card } from 'react-bootstrap';
 
 function PageAdmin() {
   const [activities, updateActivities] = useState(storage.get('activities', []));
   const [editActivityState, updateEditActivityState] = useState(null);
 
   const addActivity = (activity) => {
-    const updatedActivities = activities.concat(activity);
+    const updatedActivities = [activity].concat(activities);
     updateActivities(updatedActivities);
     storage.save('activities', updatedActivities);
   };
@@ -37,16 +38,25 @@ function PageAdmin() {
 
   return (
     <Page title="Admin">
-      <CreateActivity
-        className="mb-4"
-        onCreate={addActivity}
-      />
-      <ActivityList
-        activities={activities}
-        editable
-        onEdit={updateEditActivityState}
-        onRemove={removeActivity}
-      />
+      <Card>
+        <Card.Header>
+          <Card.Title className="mb-0">Manage Exercises</Card.Title>
+        </Card.Header>
+
+        <Card.Body>
+          <CreateActivity
+            className="mb-4"
+            onCreate={addActivity}
+          />
+          <ActivityList
+            activities={activities}
+            editable
+            onEdit={updateEditActivityState}
+            onRemove={removeActivity}
+          />
+        </Card.Body>
+      </Card>
+
       {!!editActivityState && (
         <EditActivityModal
           activity={editActivityState}

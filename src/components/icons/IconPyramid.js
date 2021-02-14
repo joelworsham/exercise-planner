@@ -1,31 +1,32 @@
 function IconPyramid() {
   return (
     <svg
-      className="ep-icon ep-icon-pyramid"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 300 300"
       fill="currentColor"
+      className="ep-icon ep-icon-pyramid"
     >
       <rect
-        width="90"
-        height="300"
+        width="300"
+        height="90"
+        y="210"
         rx="14"
       />
       <rect
-        width="90"
-        height="250"
-        x="105"
-        y="25"
+        width="250"
+        height="90"
+        x="25"
+        y="105"
         rx="14"
       />
       <rect
-        width="90"
-        height="200"
-        x="210"
-        y="50"
+        width="200"
+        height="90"
+        x="50"
         rx="14"
       />
     </svg>
+
   );
 }
 
