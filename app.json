@@ -1,6 +1,12 @@
 {
   "name": "Exercise Planner",
   "description": "Weekly planner and tracker for exercising.",
+  "env": {
+    "REACT_APP_API_URL": {
+      "description": "URL of the API the app will reach out to.",
+      "required": true
+    }
+  },
   "keywords": [
     "exercise",
     "weekly",
