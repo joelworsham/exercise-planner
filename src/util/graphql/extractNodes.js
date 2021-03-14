@@ -7,17 +7,19 @@
  * @param {Boolean} config.withNodeContext If true, includes node/edge fields.
  * @returns {Array}
  */
-export default (
-  { nodes },
+const extractNodes = (
+  {nodes},
   {
     withNodeContext = false,
   } = {},
 ) => (
-  nodes.reduce((extracted, { node, ...nodeContext }) => (
+  nodes.reduce((extracted, {node, ...nodeContext}) => (
     extracted.concat(
       withNodeContext
-      ? { ...node, context: nodeContext }
+        ? {...node, context: nodeContext}
         : node
     )
   ), [])
 )
+
+export default extractNodes;

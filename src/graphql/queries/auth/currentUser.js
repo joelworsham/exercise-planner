@@ -1,9 +1,9 @@
-import userFields from '../../fields/user';
+import user from '../../fields/user';
 
 const currentUser = `
 {
   currentUser {
-    ${userFields}
+    ${user}
   }
 }
 `;

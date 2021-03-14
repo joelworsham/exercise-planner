@@ -1,9 +1,9 @@
 import FontAwesome from 'react-fontawesome';
 
-function ActivityCategoryIcon() {
+function ExerciseCategoryIcon() {
   return (
     <FontAwesome name="cog"/>
   );
 }
 
-export default ActivityCategoryIcon;
+export default ExerciseCategoryIcon;

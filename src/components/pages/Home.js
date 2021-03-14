@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Page from '../layout/Page';
-import WeeklyActivities from '../WeeklyActivities';
+import Sessions from '../session/Sessions';
 
 function PageHome() {
   return (
     <Page>
-      <WeeklyActivities/>
+      <Sessions/>
     </Page>
   );
 }

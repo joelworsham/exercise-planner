@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, {useState, useContext, createContext} from 'react';
 import currentUserQuery from './graphql/queries/auth/currentUser';
 import logInQuery from './graphql/mutations/auth/logIn';
 import logOutQuery from './graphql/mutations/auth/logOut';
@@ -13,7 +13,7 @@ function useProvideAuth() {
   const [errors, setErrors] = useState(null);
 
   const getCurrentUser = async () => {
-    const { data, errors } = await makeRequest({
+    const {data, errors} = await makeRequest({
       query: currentUserQuery,
     });
 
@@ -69,7 +69,7 @@ function useProvideAuth() {
   };
 }
 
-export function ProvideAuth({ children }) {
+export function ProvideAuth({children}) {
   const auth = useProvideAuth();
 
   // Initially try and get current user

@@ -1,26 +1,29 @@
 import { Button } from 'react-bootstrap';
 
-function ActivityItemEditable(
+function ExerciseItemEditable(
   {
     children,
     className= '',
+    disabled = false,
     onEdit,
-    onRemove,
+    onDelete,
   },
 ) {
   return (
-    <div className={`ep-activity-item-editable d-flex justify-content-between ${className}`}>
+    <div className={`ep-exercise-item-editable d-flex justify-content-between ${className}`}>
       {children}
-      <div className="ep-activity-item-editable-actions d-flex ml-2">
+      <div className="ep-exercise-item-editable-actions d-flex ml-2">
         <Button
+          disabled={disabled}
           variant="outline-secondary mr-2"
           onClick={onEdit}
         >
           Edit
         </Button>
         <Button
+          disabled={disabled}
           variant="outline-danger"
-          onClick={onRemove}
+          onClick={onDelete}
         >
           Remove
         </Button>
@@ -29,4 +32,4 @@ function ActivityItemEditable(
   );
 }
 
-export default ActivityItemEditable
+export default ExerciseItemEditable

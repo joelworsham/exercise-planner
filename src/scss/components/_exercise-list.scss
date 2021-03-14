@@ -1,6 +1,6 @@
-.ep-activity-list {
-  > .ep-activity-item-editable,
-  > .ep-activity-item {
+.ep-exercise-list {
+  > .ep-exercise-item-editable,
+  > .ep-exercise-item {
     &:not(:last-child) {
       margin-bottom: $exercise-list-margin-bottom;
     }

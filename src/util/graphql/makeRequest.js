@@ -3,7 +3,6 @@ import handleError from './handleError';
 import logErrors from './logErrors';
 
 const makeRequest = async ({ query, variables }) => {
-
   const client = axios.create({
     withCredentials: true,
     baseURL: process.env.REACT_APP_API_URL,

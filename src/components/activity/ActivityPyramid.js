@@ -1,4 +1,4 @@
-import IconPyramid from './icons/IconPyramid';
+import IconPyramid from '../icons/IconPyramid';
 
 function ActivityPyramid(
   {

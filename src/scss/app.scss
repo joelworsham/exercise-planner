@@ -14,9 +14,9 @@ App entry point SCSS.
 @import 'utilities/grid';
 
 // Rest of app...
-@import 'components/activity-item';
-@import 'components/activity-item-editable';
-@import 'components/activity-list';
+@import 'components/exercise-list';
 @import 'components/activity-pyramid';
 @import 'components/activity-superset';
+@import 'components/exercise-item';
+@import 'components/exercise-item-editable';
 @import 'components/icon';

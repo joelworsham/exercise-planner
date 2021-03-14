@@ -1,4 +1,4 @@
-import userFields from '../../fields/user';
+import user from '../../fields/user';
 
 const logIn = `
 mutation (
@@ -10,7 +10,7 @@ mutation (
     password: $password,
   ) {
     user {
-      ${userFields}
+      ${user}
     }
   }
 }

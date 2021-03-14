@@ -1,71 +1,158 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Page from '../layout/Page';
-import ActivityList from '../ActivityList';
-import CreateActivity from '../CreateActivity';
-import storage from '../../lib/storage';
-import EditActivityModal from '../EditActivityModal';
-import { Card } from 'react-bootstrap';
+import ExerciseList from '../exercise/ExerciseList';
+import ExerciseCreate from '../exercise/ExerciseCreate';
+import ExerciseEditModal from '../exercise/ExerciseEditModal';
+import {Card} from 'react-bootstrap';
+import makeRequest from '../../util/graphql/makeRequest';
+import exercisesQuery from '../../graphql/queries/exercise/exercises';
+import exerciseCreateMutation from '../../graphql/mutations/exercise/exerciseCreate';
+import log from '../../lib/log';
+import exerciseDeleteMutation from '../../graphql/mutations/exercise/exerciseDelete';
+import exerciseUpdateMutation from '../../graphql/mutations/exercise/exerciseUpdate';
+import getItems from '../../util/graphql/getItems';
 
-function PageAdmin() {
-  const [activities, updateActivities] = useState(storage.get('activities', []));
-  const [editActivityState, updateEditActivityState] = useState(null);
+class PageAdmin extends React.Component {
+  state = {
+    exercises: [],
+    editExerciseState: null,
+    loading: false,
+  }
 
-  const addActivity = (activity) => {
-    const updatedActivities = [activity].concat(activities);
-    updateActivities(updatedActivities);
-    storage.save('activities', updatedActivities);
-  };
+  async createExercise(exerciseState) {
+    this.setState({loading: true});
 
-  const removeActivity = (activity) => {
+    const {data, errors} = await makeRequest({
+      query: exerciseCreateMutation,
+      variables: {
+        exercise: exerciseState,
+      },
+    })
+
+    if (errors) {
+      log.error(`Could not create exercise with name: "${exerciseState.name}"`, errors);
+    } else {
+      this.setState((prevState) => ({
+        exercises: [data.exerciseCreate].concat(prevState.exercises),
+      }))
+    }
+
+    this.setState({loading: false});
+  }
+
+  async deleteExercise(exercise) {
     // eslint-disable-next-line no-restricted-globals
-    if (!confirm(`Really remove activity "${activity.name}"?`)) return;
-    const updatedActivities = activities.filter(({ id }) => id !== activity.id);
-    updateActivities(updatedActivities);
-    storage.save('activities', updatedActivities);
-  };
+    if (!confirm(`Really remove exercise "${exercise.name}"?`)) return;
 
-  const updateActivity = (activityState) => {
-    const updatedActivities = activities.map((activity) => (
-      activityState.id === activity.id
-        ? { ...activity, ...activityState }
-        : activity
-    ));
-    updateActivities(updatedActivities);
-    storage.save('activities', updatedActivities);
-    updateEditActivityState(null);
-  };
+    this.setState({loading: true});
 
-  return (
-    <Page title="Admin">
-      <Card>
-        <Card.Header>
-          <Card.Title className="mb-0">Manage Exercises</Card.Title>
-        </Card.Header>
+    const {errors} = await makeRequest({
+      query: exerciseDeleteMutation,
+      variables: {
+        id: exercise.id,
+      },
+    })
 
-        <Card.Body>
-          <CreateActivity
-            className="mb-4"
-            onCreate={addActivity}
+    if (errors) {
+      log.error(`Could not delete exercise with name: "${exercise.name}"`, errors);
+    } else {
+      this.setState((prevState) => ({
+        exercises: prevState.exercises.filter(({id}) => id !== exercise.id),
+      }))
+    }
+
+    this.setState({loading: false});
+  }
+
+  async updateExercise(exerciseState) {
+    this.setState({loading: true});
+
+    const {data, errors} = await makeRequest({
+      query: exerciseUpdateMutation,
+      variables: {
+        exercise: exerciseState,
+      },
+    })
+
+    if (errors) {
+      log.error(`Could not update exercise with name: "${exerciseState.name}"`, errors);
+    } else {
+      this.setState((prevState) => ({
+        exercises: prevState.exercises.map((exercise) => (
+          exercise.id !== data.exerciseUpdate.id
+            ? exercise
+            : data.exerciseUpdate
+        )),
+      }))
+    }
+
+    this.setState({loading: false, editExerciseState: null});
+  }
+
+  async getExercises() {
+    this.setState({loading: true});
+
+    const {data, errors} = await makeRequest({
+      query: exercisesQuery,
+    })
+
+    if (errors) {
+      log.error('Could not get exercises', errors);
+    } else {
+      this.setState({
+        exercises: getItems({data}, 'exercises'),
+      })
+    }
+
+    this.setState({loading: false});
+  }
+
+  async componentDidMount() {
+    await this.getExercises();
+  }
+
+  render() {
+    const {
+      exercises,
+      editExerciseState,
+      loading,
+    } = this.state;
+
+    return (
+      <Page title="Admin">
+        <Card>
+          <Card.Header>
+            <Card.Title className="mb-0">Manage Exercises</Card.Title>
+          </Card.Header>
+
+          <Card.Body>
+            <ExerciseCreate
+              className="mb-4"
+              loading={loading}
+              onCreate={(exerciseState) => this.createExercise(exerciseState)}
+            />
+            <ExerciseList
+              editable
+              exercises={exercises}
+              disabled={loading}
+              onEdit={(exercise) => this.setState({editExerciseState: exercise})}
+              onDelete={(exercise) => this.deleteExercise(exercise)}
+            />
+          </Card.Body>
+        </Card>
+
+        {!!editExerciseState && (
+          <ExerciseEditModal
+            disbled={loading}
+            exercise={editExerciseState}
+            onCancel={() => this.setState({editExerciseState: null})}
+            onUpdate={(exerciseState) => this.updateExercise(exerciseState)}
           />
-          <ActivityList
-            activities={activities}
-            editable
-            onEdit={updateEditActivityState}
-            onRemove={removeActivity}
-          />
-        </Card.Body>
-      </Card>
-
-      {!!editActivityState && (
-        <EditActivityModal
-          activity={editActivityState}
-          onCancel={() => updateEditActivityState(null)}
-          onUpdate={updateActivity}
-        />
-      )}
-    </Page>
-  );
+        )}
+      </Page>
+    );
+  }
 }
 
 export default PageAdmin;

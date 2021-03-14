@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-function EditActivityModal(
+function ExerciseEditModal(
   {
-    activity,
+    disabled = false,
+    exercise,
     onCancel,
     onUpdate,
   },
 ) {
-  // TODO integrate into Redux
-  const [activityState, updateActivityState] = useState(activity);
+  const [exerciseState, updateExerciseState] = useState(exercise);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onUpdate(activityState);
+    onUpdate(exerciseState);
   };
 
-  const handleUpdateActivityState = (state) => {
-    updateActivityState({
-      ...activityState,
+  const handleUpdateExerciseState = (state) => {
+    updateExerciseState({
+      ...exerciseState,
       ...state,
     });
   };
@@ -29,7 +29,7 @@ function EditActivityModal(
       onHide={onCancel}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Edit "{activityState.name}"</Modal.Title>
+        <Modal.Title>Edit "{exerciseState.name}"</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -38,19 +38,20 @@ function EditActivityModal(
           onSubmit={handleSubmit}
           validated={true}
         >
-          <Form.Group controlId="validateActivity">
-            <Form.Label>Activity Name</Form.Label>
+          <Form.Group controlId="validateExercise">
+            <Form.Label>Exercise Name</Form.Label>
             <Form.Control
               type="text"
+              disabled={disabled}
               required
               placeholder="Overhead Press, Squats, Bicep Curls, etc."
-              value={activityState.name}
-              onChange={(event) => handleUpdateActivityState({
+              value={exerciseState.name}
+              onChange={(event) => handleUpdateExerciseState({
                 name: event.target.value,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              Enter an activity name
+              Enter an exercise name
             </Form.Control.Feedback>
           </Form.Group>
         </Form>
@@ -58,14 +59,16 @@ function EditActivityModal(
 
       <Modal.Footer>
         <Button
+          disabled={disabled}
           variant="secondary"
           onClick={onCancel}
         >
           Cancel
         </Button>
         <Button
+          disabled={disabled}
           variant="primary"
-          onClick={() => onUpdate(activityState)}
+          onClick={() => onUpdate(exerciseState)}
         >
           Save Changes
         </Button>
@@ -74,4 +77,4 @@ function EditActivityModal(
   );
 }
 
-export default EditActivityModal;
+export default ExerciseEditModal;

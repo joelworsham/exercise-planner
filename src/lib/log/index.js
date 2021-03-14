@@ -4,7 +4,7 @@ const log = {
     console.log(message);
   },
   error: (message, { error = undefined } = {}) => {
-    console.log(message);
+    console.error(message);
     if (error) {
       console.log(error);
     }

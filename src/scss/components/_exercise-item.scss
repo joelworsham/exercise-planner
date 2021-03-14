@@ -1,14 +1,14 @@
-.ep-activity-item-container {
+.ep-exercise-item-container {
   height: $exercise-item-height;
   border: 1px solid $gray-300;
   border-radius: $border-radius;
 }
 
-.ep-activity-item-name {
+.ep-exercise-item-name {
   padding: 0 1rem 0 2rem;
 }
 
-.ep-activity-item-category {
+.ep-exercise-item-category {
   width: 2.5rem;
   height: calc(100% + 2px);
   margin-left: -1px;
